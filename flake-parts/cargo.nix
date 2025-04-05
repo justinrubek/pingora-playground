@@ -10,6 +10,7 @@
     # packages required for building the rust packages
     extraPackages = [
       pkgs.pkg-config
+      pkgs.cmake
     ];
     withExtraPackages = base: base ++ extraPackages;
 
