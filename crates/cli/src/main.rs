@@ -1,5 +1,5 @@
 use crate::{
-    commands::{Commands, HelloCommands},
+    commands::{Commands, ProxyCommands},
     error::Result,
 };
 use async_trait::async_trait;
@@ -14,10 +14,10 @@ fn main() -> Result<()> {
 
     let args = commands::Args::parse();
     match args.command {
-        Commands::Hello(hello) => {
+        Commands::Proxy(hello) => {
             let cmd = hello.command;
             match cmd {
-                HelloCommands::World => {
+                ProxyCommands::World => {
                     let mut server = Server::new(None).unwrap();
                     server.bootstrap();
 
@@ -31,17 +31,9 @@ fn main() -> Result<()> {
                     println!("Route /* -> 10.1.1.150");
                     server.run_forever();
                 }
-                HelloCommands::Name { name } => {
-                    println!("Hello, {name}!");
-                }
-                HelloCommands::Error => {
-                    Err(crate::error::Error::Other("error".into()))?;
-                }
             }
         }
     }
-
-    Ok(())
 }
 
 pub struct Router;
